@@ -33,7 +33,7 @@ public class SumTree {
 		tree.root.right.right.left = new SumTree(7);
 		tree.root.right.right.right = new SumTree(8);
 		
-        System.out.println(sumTree(tree));
+        System.out.println(isSumTree(tree));
 	}
 	
 	private static int isLeaf(SumTree s) {
@@ -42,33 +42,18 @@ public class SumTree {
 		return 0;
 	}
 	
-	private static int sumTree(SumTree s) {
-		if ((s == null) || (isLeaf(s) == 1))
+	private static int isSumTree(SumTree n) {
+		if (n == null || isLeaf(n) == 1)
 			return 1;
 		
-		int l = 0;
-		int r = 0;
+		if((isSumTree(n.left) == 0) || (isSumTree(n.right) == 0))
+			return 0;
 		
-		if ((sumTree(s.left) != 0) && (sumTree(s.right) != 0)) {
-			if (s.left != null) {
-				if (isLeaf(s.left) == 1)
-					l = s.left.data;
-				else
-					l = s.left.data * 2;
-			}
-			
-			if (s.right != null) {
-				if (isLeaf(s.right) == 1)
-					r = s.right.data;
-				else
-					r = s.right.data * 2;
-			}
-			
-			if ((l+r) == s.data)
-				return 1;
-			else
-				return 0;
-		}
-		return 0;
+		int left = (isLeaf(n.left) == 1)? n.left.data : (2*n.left.data);
+		int right = (isLeaf(n.right) == 1)? n.right.data : (2*n.right.data);
+		if (n.data != (left + right))
+			return 0;
+		
+		return 1;
 	}
 }

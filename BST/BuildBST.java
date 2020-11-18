@@ -43,8 +43,7 @@ public class BuildBST {
 			return null;
 		
 		// search index in inorder array
-		int i = map.get(post[index.index]);
-		index.index--;
+		int i = map.get(post[index.index--]);
 		// build right sub tree
 		currRoot.right = buildTree(post, i+1, high, index);
 		// build left sub tree
